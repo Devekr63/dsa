@@ -1,4 +1,4 @@
-package com.phonepe.coding.problem_one;
+package com.phonepe.coding.diagonal_mat_sort;
 
 import java.util.*;
 

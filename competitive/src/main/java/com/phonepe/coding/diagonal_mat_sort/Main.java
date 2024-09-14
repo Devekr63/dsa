@@ -1,9 +1,8 @@
-package com.phonepe.coding.problem_one;
+package com.phonepe.coding.diagonal_mat_sort;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
