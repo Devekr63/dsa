@@ -1,64 +1,70 @@
 package com.phonepe.coding.bank_bot;
 
+import java.util.Arrays;
+
 public class BankBot {
 
     public static void main(String[] args) {
-        int[] balance  =  {20,1000,500,40,90};
-        String[] request = {"deposit 3 400", "transfer 1 2 30", "withdraw 4 50"};
+        int[] balance  =  {10,100,20,50,30};
+        String[] request = {"withdraw 2 10", "transfer 5 1 20",  "deposit 5 20",  "transfer 3 4 15"};
         requestHandler(balance, request);
         for(int amt:balance){
             System.out.print(amt+" ");
         }
+
+        System.out.println();
+        System.out.println(Arrays.toString(balance));
     }
 
     private static void requestHandler(int[] balance, String[] reqs){
         int accounts = balance.length;
         for(String req : reqs){
 
-            String action = req.split(" ")[0];
+//            String action = req.split(" ")[0];
+            switch (req.split(" ")[0]){
+                case "withdraw" -> {
+//                    System.out.println(action);
 
-            if(action.equals("withdraw")){
-                System.out.println(action);
-
-                int accNo = Integer.parseInt(req.split(" ")[1])-1;
-                int amount = Integer.parseInt(req.split(" ")[2]);
+                    int accNo = Integer.parseInt(req.split(" ")[1])-1;
+                    int amount = Integer.parseInt(req.split(" ")[2]);
 
 
-                if(validAccount(accNo, accounts) &&
-                        sufficientBalance(balance[accNo], amount))
-                {
-                    System.out.println(accNo+"->"+amount);
-                    balance[accNo] -= amount;
+                    if(validAccount(accNo, accounts) &&
+                            sufficientBalance(balance[accNo], amount))
+                    {
+                        System.out.println(accNo+"->"+amount);
+                        balance[accNo] -= amount;
+                    }
                 }
-            }
-            else if(action.equals("transfer")){
-                System.out.println(action);
+                case "transfer" -> {
+//                    System.out.println(action);
 
-                int debitAcc = Integer.parseInt(req.split(" ")[1])-1;
-                int creditAcc = Integer.parseInt(req.split(" ")[2])-1;
-                int amount = Integer.parseInt(req.split(" ")[3]);
-
+                    int debitAcc = Integer.parseInt(req.split(" ")[1])-1;
+                    int creditAcc = Integer.parseInt(req.split(" ")[2])-1;
+                    int amount = Integer.parseInt(req.split(" ")[3]);
 
 
-                if(validAccount(debitAcc, accounts) &&
-                        validAccount(creditAcc, accounts) &&
-                sufficientBalance(balance[debitAcc], amount)){
-                    System.out.println(debitAcc+"->"+creditAcc+" : "+amount);
-                    balance[debitAcc] -= amount;
-                    balance[creditAcc] += amount;
+
+                    if(validAccount(debitAcc, accounts) &&
+                            validAccount(creditAcc, accounts) &&
+                            sufficientBalance(balance[debitAcc], amount)){
+                        System.out.println(debitAcc+"->"+creditAcc+" : "+amount);
+                        balance[debitAcc] -= amount;
+                        balance[creditAcc] += amount;
+                    }
                 }
-            }
-            else{
-                System.out.println(action);
+                case "deposit" -> {
+//                    System.out.println(action);
 
-                int accNo = Integer.parseInt(req.split(" ")[1])-1;
-                int amount = Integer.parseInt(req.split(" ")[2]);
-
+                    int accNo = Integer.parseInt(req.split(" ")[1])-1;
+                    int amount = Integer.parseInt(req.split(" ")[2]);
 
 
-                if(validAccount(accNo, accounts)){
-                    System.out.println(accNo+"->"+amount);
-                    balance[accNo] += amount;
+
+                    if(validAccount(accNo, accounts)){
+                        System.out.println(accNo+"->"+amount);
+                        balance[accNo] += amount;
+                    }
                 }
             }
         }
